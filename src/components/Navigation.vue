@@ -1,208 +1,144 @@
 <template>
-<div class="wrapper">
-  <div class="whiteBackground" v-show="overlay" ></div>
-
-  <nav class="small-max ">
+  <nav>
+    <!-- <div class="logo">
+      <h1>Group(three)</h1>
+    </div> -->
     <div class="logo">
-        <h1>group<span>(three)</span></h1>
+      <h3>Group(three)</h3>
+    </div>
+  
+
+    <div class="burger-icon" @click="toggleNav()">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
     </div>
 
-    <div class="burger small-screen" @click="toggleMenu">
-      <div class="line" :style="popUp"></div>
-      <div class="line" :style="popUp"></div>
-      <div class="line" :style="popUp"></div>
+    <!-- Mobile Pop Up Nav -->
+    <div v-show="mobileNav" class="overlay">
+      <a v-on:click="toggleNav()" class="closebtn">&times;</a>
+      <div class="overlay-content">
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        <a href="#">Articles</a>
+        <a href="#">Curriculum</a>
+      </div>
     </div>
 
-    <div class="links small-screen" v-if="isMenuClicked">
-        <ul> 
-            <li ><a href="#">Home</a></li>
-            <li ><a href="#">Contact</a></li>
-            <li ><a href="#">About</a></li>
-            <div class="cta small-screen">
-                <button>Enroll Now</button>
-            </div>
-        </ul>
-    </div>
-    <div class="cta large-screen" >
-        <ul> 
-            <li ><a href="#">Home</a></li>
-            <li ><a href="#">Contact</a></li>
-            <li ><a href="#">About</a></li>
-        </ul>
-        <button>Enroll Now</button>
-    </div>
+
   </nav>
-</div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            isMenuClicked: false,
-            overlay: false,
-            popUp: null,
-        }
-    },
-    methods: {
-        toggleMenu() {
-            
-            this.isMenuClicked = !this.isMenuClicked
-            if (this.isMenuClicked === true ) {
-                this.overlay = true
-                this.popUp = {backgroundColor: 'black'}
-            } else {
-                this.overlay = false
-                this.popUp = {}
-            }
-           
-        },
-    }, 
-    
+  data() {
+    return {
+      mobileNav: true,
+    }
+  },
+  methods: {
+    toggleNav() {
+     this.mobileNav = !this.mobileNav
+    }
+  }
+
 }
 </script>
 
 <style>
-.small-max {
-    /* width: 100%; */
-    /* max-width: 475px; */
-    margin: 0 auto;
-    padding-left: 1em;
-    padding-right: 1em;
-}
-
-.small-max-absolute {
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); 
-}
 
 nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--textColor);
-    position: relative;
-    z-index: 1;
-
-
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1em;
 }
 
-.links {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-  
-    top: 0;
- 
-}
-
-.wrapper {
-    position: relative;
-  
-}
-
-.whiteBackground {
-    background-color: white;
-      width: 100%;
-    height: 100vh;
-    z-index: 0;
-    position: absolute;
-  
-}
-
-.links ul li {
-    font-size: 1.75rem;
-    /* text-align: left; */
-    /* background-color: red; */
-     
+.logo h3 {
+  font-size: 1.25rem;
+  color: var(--textColor);
 }
 
 
-.links {
-    width: 100%;
-    background-color: gray;
-    margin-top: 4em;
+.overlay a{
+  color: var(--textColor);
+  text-decoration: none;
+
+  display: block;
+  transition: 0.9s opacity;
+  font-size: 1.5rem;
+
 }
 
-.links ul{  
-    display: flex;  
-    flex-direction: column;
-    position: absolute;
-    list-style-type: none;
-    gap: 3em;
-
-    width: 100%;
-    left: -0.5em;
-    margin-top: 7em;
-    /* background-color: gray; */
-    padding: 0 0 0 0;
+.overlay {
+  background-color: rgb(34, 34, 34);
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow-x: hidden;
+  transition: opacity 0.5s ease-in-out;
 }
 
-/* .links ul li{  
-    width: 100%;
+.overlay-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  position: relative;
+  top: 25%;
+  width: 100%;
+  text-align: left;
+  margin-left: 3em;
+  margin-top: 30px;
 
-} */
-
-.links ul a {
-    color: var(--backgroundColor);
-    text-decoration: none;
- 
 }
 
+.overlay .closebtn {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 50px;
+  cursor: pointer;
+}
+
+
+/* Burger menu */
+.burger-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 20px;
+  cursor: pointer;
+}
 
 .line {
-  width: 27px;
+  width: 100%;
   height: 3px;
-  background-color: rgb(218, 218, 218);
-  margin: 4px 0;
-}
-
-.burger {
-      cursor: pointer;
-
-}
-
-.line.black {
-  background-color: rgb(0, 0, 0);
+  background-color: #dadada;
+  transition: transform 0.3s, opacity 0.3s;
 }
 
 
-
-.cta.small-screen {
-    border-top: 2px solid black;
-    padding-top: 6em;
-
+/* .burger-icon.clicked .line:nth-child(2) {
+  opacity: 0;
 }
 
-.cta.small-screen button {
-    padding: 1em 2.5em;
-    font-size: 1rem;
-    cursor: pointer;
-    background-color: var(--yellow);
-    border: 1px solid gray;
-    border-radius: 5px;
 
-    font-family: var(--f-noto);
-    font-weight: bold;
+.burger-icon.clicked .line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
 }
 
-/* Responsive */
-.large-screen {
-    display: none;
-}
-
-.small-screen {
-    display: block;
-}
-
-@media screen and (min-width: 560px) {
-    .large-screen {
-        display: block;
-    }
-
-    .small-screen {
-        display: none;
-    }
-}
+.burger-icon.clicked .line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+} */
 </style>
+
+
+<!-- 
+
+
+
+
+ -->

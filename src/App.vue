@@ -36,7 +36,7 @@ export default {
 
 body {
   background: var(--backgroundColor);
-  max-width: 550px;
+  /* max-width: 550px; */
   margin: 0 auto;
 }
 
